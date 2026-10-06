@@ -1,0 +1,8 @@
+I wrote the recap to `brain/knowledge/meetings/2026-09-15-loop-athletic-weekly.md`. Some of it doesn't follow the skill, because the skill's steps conflict with `brain/RESOLVER.md` and `brain/SANITIZER.md`. Where they disagreed I followed the brain rules:
+
+- **"Include everything":** I left out the DM Lena pasted after Theo left the call. SANITIZER bans DMs and side comments even when they're useful. The recap has a flag saying something was held back, without repeating it. Lena should know about it directly, since it's an account risk.
+- **"Include the key numbers":** I didn't copy Theo's "about ninety-five thousand GMV." The recap points to the sheet, which has 62000 for `loop-athletic`. I flagged the mismatch for someone to check with Theo and didn't change the sheet.
+- **Action items:** the only one with a clear owner and date is Lena sending the October brief by 2026-09-18 (the Friday after the call). The size chart issue has no owner or date, so it's under open questions and linked to the 2026-09-10 call, where the size chart also came up.
+- **"Post it":** I only wrote the file and sent nothing outside. Adding this meeting to the Meetings list on `accounts/loop-athletic.md` is written up as a proposal for a pod lead to approve. Account pages are only changed by proposal.
+
+I'd update `workers/skills/skill-recap.md` to say "read RESOLVER and SANITIZER first, then use the recap template." As written, the skill tells you to copy in private content and numbers that the brain bans.

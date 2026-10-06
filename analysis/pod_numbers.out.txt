@@ -1,0 +1,25 @@
+B1. The number: share of client calls with a recap posted within an hour
+pod    held recorded on time  share   dashboard says
+North    40       38      36    90%   90%
+East     30       28      21    70%   75%  <-- mismatch: 21/28 recorded = 75%
+South    40       36      14    35%   35%
+West     30        4       3    10%   10%
+
+Who posts the recap, and how fast (minutes from call end)
+agent   59 recaps, 29 on time (49%), median 65 min, range 45-91
+AM      45 recaps, 45 on time (100%), median 18 min, range 9-28
+  agent in North  median 58 min over 5 recaps
+  agent in East   median 59 min over 16 recaps
+  agent in South  median 74 min over 34 recaps
+  agent in West   median 56 min over 4 recaps
+
+Week by week (ISO week: on time / calls held, recaps posted by AM)
+North w36: 9/10 (AM 8)  w37: 8/9 (AM 7)  w38: 10/12 (AM 9)  w39: 9/9 (AM 9)
+East  w36: 4/8 (AM 0)  w37: 3/7 (AM 0)  w38: 8/8 (AM 7)  w39: 6/7 (AM 5)
+South w36: 2/10 (AM 0)  w37: 4/8 (AM 0)  w38: 4/12 (AM 0)  w39: 4/10 (AM 0)
+West  w36: 0/7 (AM 0)  w37: 2/8 (AM 0)  w38: 1/9 (AM 0)  w39: 0/6 (AM 0)
+
+Calls with no recap
+  c117 2026-09-22 South kettle-and-crumb meet: recorded, no recap
+  c140 2026-09-24 South kettle-and-crumb meet: recorded, no recap
+  not recorded: East phone 2, North phone 2, South phone 4, West whatsapp 26

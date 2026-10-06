@@ -1,0 +1,5 @@
+# check_recap.py: a pre-post check for meeting recaps
+- **What it does:** checks recaps against RESOLVER and SANITIZER (template, one owner and a date per action item, private remarks, opinions, our fees, typed numbers, links, side talk repeated from after the client left) and prints PASS / WARN / FAIL with line numbers; exit 1 on any FAIL. A reworded leak still gets through, so the cut belongs in code ([C3](../fde-ticket.md)).
+- **How to run:** `python extra/check_recap.py brain/knowledge/meetings/` (Python 3, standard library only). For a recap whose frontmatter has no transcript path: `python extra/check_recap.py workers/output/bad-recap.md --source workers/output/bad-recap-source.md`.
+- **Why this one:** most of what went wrong in `bad-recap.md` is mechanical to catch, and the agent posts straight to the client's channel, so a check that runs in under a second before posting is the simplest guard.
+- **Next:** make it the recap agent's last step (a FAIL holds the post and sends the AM the reasons), then report "on time and passing" by pod next to the dashboard number, so a faster agent can't hide bad recaps.

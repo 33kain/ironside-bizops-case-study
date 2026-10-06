@@ -1,0 +1,34 @@
+1. Gap to the 80% target, and who posted the on-time recaps
+  North 36/40 on time, 80% = 32 calls, short by 0; on-time recaps posted by: {'AM': 33, 'agent': 3}
+  East  21/30 on time, 80% = 24 calls, short by 3; on-time recaps posted by: {'agent': 9, 'AM': 12}
+  South 14/40 on time, 80% = 32 calls, short by 18; on-time recaps posted by: {'agent': 14}
+  West  3/30 on time, 80% = 24 calls, short by 21; on-time recaps posted by: {'agent': 3}
+
+2. East before and after its AMs started posting (first AM post: 2026-09-15)
+  2026-09-01 to 2026-09-13 (ISO weeks 36-37): 7/15 on time, AM-posted 0
+  2026-09-14 to 2026-09-24 (ISO weeks 38-39): 14/15 on time, AM-posted 12
+  2026-09-07 to 2026-09-13 (ISO week 37): 3/7 on time, AM-posted 0
+  2026-09-14 to 2026-09-20 (ISO week 38): 8/8 on time, AM-posted 7
+
+3. South
+  accounts: {'harbor-hound': 11, 'maple-mornings': 8, 'juniper-home': 11, 'kettle-and-crumb': 4, 'golden-hour-cosmetics': 6}
+  calls per week: {36: 10, 37: 8, 38: 12, 39: 10}
+  posted by: {'agent': 34, 'no recap': 6}
+  agent recaps: 34, on time 14, late 20 (late ones 69-91 min), median 74 min
+  not recorded: [('c036', 'phone', 'golden-hour-cosmetics'), ('c043', 'phone', 'juniper-home'), ('c083', 'phone', 'maple-mornings'), ('c100', 'phone', 'golden-hour-cosmetics')]
+  recorded, no recap: [('c117', '2026-09-22', 'kettle-and-crumb'), ('c140', '2026-09-24', 'kettle-and-crumb')]
+  if all 34 agent recaps had landed within the hour: 34/40 = 85%
+  last week of data, 2026-09-21 to 2026-09-24 (ISO week 39): 4/10 on time
+
+4. Kettle & Crumb (South's focus account in NOW.md)
+  c024 2026-09-03 posted by agent: 74 min
+  c096 2026-09-17 posted by agent: 80 min
+  c117 2026-09-22 posted by -: no recap
+  c140 2026-09-24 posted by -: no recap
+
+5. West
+  platform x recorded: {('whatsapp', 'no'): 26, ('meet', 'yes'): 4}
+  recorded calls: 4, on time 3, minutes [51, 56, 55, 71]
+
+6. The recap a pod lead complained about (workers/output/bad-recap.md)
+  c084 2026-09-15 West loop-athletic: posted 55 min after the call by agent, on time
