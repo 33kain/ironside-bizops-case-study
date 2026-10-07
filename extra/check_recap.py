@@ -6,6 +6,7 @@ PATH is a recap .md file or a folder of them. Prints PASS / WARN / FAIL per file
 numbers and reasons. Exit code 1 if any file FAILs. Python 3 standard library only.
 """
 import argparse
+import csv
 import re
 import sys
 import textwrap
@@ -43,6 +44,8 @@ NOT_AMOUNT = re.compile(rf"\]\([^)]*\)|\b\d{{4}}-\d\d-\d\d\b|\b\d{{1,2}} ({MONTH
                         r"|\b20\d\d\b|\b\d+[- ](day|week|month|hour|min)", re.I)  # dates and periods are not amounts
 AMOUNT = re.compile(r"\$\s?\d|\b\d|\b(hundred|thousand|million|billion)\b", re.I)
 LINK = re.compile(r"\[([^\]]*)\]\(([^)\s]+)\)")
+GMV_LINE = re.compile(r"\*\*GMV, last 30 days:\*\*\s*(.*)")
+GMV_CONFLICT = re.compile(r"\bGMV\b.*\b(doesn't|does not) match\b", re.I)
 
 
 def read(path):
@@ -134,6 +137,36 @@ def check(path, transcript=None):
     if "Summary" in sec and not 3 <= (n := sum(bool(re.match(r"[-*+] \S", l)) for _, l in sec["Summary"])) <= 6:
         add(head["Summary"], "FAIL", f"Summary has {n} bullets, needs 3 to 6")
 
+    # GMV line under the title: the sheet's figure and date, or "under review" with no figure if the call disagreed
+    gmv_at = 0
+    top = next(((i, l.strip()) for i, l in body if l.strip() and not l.startswith("# ")), (0, ""))
+    conflict = any(GMV_CONFLICT.search(l) for _, l in sec.get("Flags for a person", []))
+    if not (m := GMV_LINE.match(top[1])):
+        add(top[0], "WARN", "no GMV line under the title (RESOLVER template since 2026-10-07)")
+    else:
+        gmv_at, rest = top[0], m[1]
+        sheet = brain.parent / "knowledge" / "reference" / "accounts-sheet.csv" if brain else None
+        sheet_rows = csv.DictReader(read(sheet)) if sheet and sheet.is_file() else []
+        row = next((r for r in sheet_rows if r["account"] == acct), None)
+        if "accounts-sheet.csv" not in rest or f"`{acct}`" not in rest:
+            add(gmv_at, "FAIL", f"GMV line must link the accounts sheet, row `{acct}`")
+        if rest.lower().startswith("under review"):
+            if AMOUNT.search(NOT_AMOUNT.sub(" ", rest)):
+                add(gmv_at, "FAIL", "GMV under review: no figure, not the sheet's or the call's")
+            if not conflict:
+                add(gmv_at, "WARN", "GMV under review, but Flags for a person has no GMV conflict")
+        elif conflict:
+            add(gmv_at, "FAIL", "Flags has a GMV conflict: the GMV line should say 'under review', with no figure")
+        elif not row:
+            add(gmv_at, "WARN", f"can't check the GMV figure: no accounts sheet row for {acct or 'this account'}")
+        else:
+            fig = re.match(r"\$([\d,]+) ", rest)
+            upd = re.search(r"updated (\d{4}-\d\d-\d\d)", rest)
+            if not fig or fig[1].replace(",", "") != row["gmv_last_30d_usd"]:
+                add(gmv_at, "FAIL", f"GMV figure must be the sheet's: ${int(row['gmv_last_30d_usd']):,}")
+            if not upd or upd[1] != row["sheet_updated"]:
+                add(gmv_at, "FAIL", f"GMV line must say the sheet's date: updated {row['sheet_updated']}")
+
     # Action items: a table, one named owner and a YYYY-MM-DD due date per row
     rows = [(i, [LINK.sub(r"\1", c).strip("*_` ") for c in l.strip().strip("|").split("|")])  # [Name](link) -> Name
             for i, l in sec.get("Action items", []) if l.strip().startswith("|")]
@@ -166,7 +199,7 @@ def check(path, transcript=None):
             hits = dict.fromkeys(m[0] for m in rx.finditer(l))
             if hits:  # no exemption for "held back" notes: saying when or where it was said is a hint too
                 add(i, level, f"{why}: " + ", ".join(f'"{h}"' for h in hits))
-        for s in re.split(r"(?<=[.!?;])\s+", l):
+        for s in re.split(r"(?<=[.!?;])\s+", l) if i != gmv_at else []:  # the GMV line is checked above
             if METRIC.search(s) and not TARGET.search(s) and AMOUNT.search(NOT_AMOUNT.sub(" ", s)):
                 quote = textwrap.shorten(s.strip(" -*|"), 70, placeholder="...")
                 add(i, "FAIL", f'performance number typed in, link the accounts sheet (RESOLVER 5): "{quote}"')

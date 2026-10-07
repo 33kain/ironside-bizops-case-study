@@ -8,6 +8,8 @@ source: inbox/call-2.md
 
 # Kettle & Crumb: monthly business review
 
+**GMV, last 30 days:** under review. Dana Reyes gave a figure that doesn't match the [accounts sheet](../reference/accounts-sheet.csv), row `kettle-and-crumb`. See Flags for a person.
+
 ## Summary
 - Dana was promoted to VP Growth and will attend the monthly business reviews.
 - Jess Park now runs ops and fulfillment at Kettle & Crumb and joins the weeklies. Samples, shipping and inventory go to her from now on, which answers who ships samples, open since 22 Sep ([recap](2026-09-22-kettle-and-crumb-weekly.md)).

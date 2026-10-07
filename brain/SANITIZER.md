@@ -1,7 +1,7 @@
 ---
 type: sanitizer
 owner: Brightline ops
-updated: 2026-09-21
+updated: 2026-10-07
 ---
 
 # SANITIZER: what never goes in the brain
@@ -20,7 +20,7 @@ Anyone in the brain can read any page, including the people and brands it's abou
 
 Before saving any page, ask:
 - Would the person or brand named here be fine reading this line?
-- Is every performance number (GMV, ad spend, active affiliates, retention) linked to the sheet rather than typed in?
+- Is every performance number (GMV, ad spend, active affiliates, retention) linked to the sheet rather than typed in? The one exception is a recap's GMV line, copied from the sheet (RESOLVER template).
 - Did anything come from a DM or a side comment?
 
 One "no" on the first two, or one "yes" on the third, and the line doesn't go in. If it matters, put a note in the recap's "Flags for a person" section saying something was held back, without repeating it.
